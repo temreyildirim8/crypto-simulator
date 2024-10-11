@@ -13,7 +13,7 @@ const useWebSocket = (symbol) => {
     };
 
     socketRef.current.onmessage = (event) => {
-      const data = JSON.parse(event.data);
+      const data = JSON.parse(event?.data);
       setLastMessage(data);
     };
 

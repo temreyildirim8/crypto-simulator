@@ -1,6 +1,6 @@
 import React from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import TradingSimulator from './components/TradingSimulator';
+import TradingSimulator from './components/TradingSimulator/TradingSimulator';
 import './index.css';
 
 const queryClient = new QueryClient();

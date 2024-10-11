@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import TradingChart from './TradingChart';
-import OrderBook from './OrderBook';
-import OrderForm from './OrderForm';
-import OrderHistory from './OrderHistory';
-import PairSelector from './PairSelector';
-import TimeframeSelector from './TimeframeSelector';
-import BalanceDisplay from './BalanceDisplay';
-import useWebSocket from '../hooks/useWebSocket';
-import { fetchMarketData, fetchOrderBook, createOrder, cancelOrder } from '../services/api';
+import TradingViewChart from '../TradingViewChart';
+import OrderBook from '../OrderBook';
+import OrderForm from '../OrderForm';
+import OrderHistory from '../OrderHistory';
+import PairSelector from '../PairSelector';
+import TimeframeSelector from '../TimeframeSelector';
+import BalanceDisplay from '../BalanceDisplay';
+import useWebSocket from '../../hooks/useWebSocket';
+import { fetchMarketData, fetchOrderBook, createOrder, cancelOrder } from '../../services/api';
+import './TradingSimulator.css';
 
 function TradingSimulator() {
   const [selectedPair, setSelectedPair] = useState('BTCUSDT');
@@ -70,15 +71,31 @@ function TradingSimulator() {
   };
 
   return (
-    <div>
-      <h1>EXZi Trading Simulator (Binance Data)</h1>
-      <PairSelector selectedPair={selectedPair} onSelect={setSelectedPair} />
-      <TimeframeSelector selectedTimeframe={selectedTimeframe} onSelect={setSelectedTimeframe} />
-      <BalanceDisplay balance={balance} lastPrice={tickerUpdate ? parseFloat(tickerUpdate.c) : null} />
-      {/* {marketData && <TradingChart data={marketData} options={{}} />} */}
-      {orderBook && <OrderBook bids={orderBook.bids} asks={orderBook.asks} />}
-      <OrderForm onSubmit={handleOrderSubmit} balance={balance} pair={selectedPair} />
-      <OrderHistory orders={orders} onCancel={handleOrderCancel} />
+    <div className="trading-simulator">
+      <h1 className="title">EXZi Trading Simulator (Binance Data)</h1>
+      <div className="controls">
+        <PairSelector selectedPair={selectedPair} onSelect={setSelectedPair} />
+        <TimeframeSelector selectedTimeframe={selectedTimeframe} onSelect={setSelectedTimeframe} />
+        <BalanceDisplay balance={balance} lastPrice={tickerUpdate ? parseFloat(tickerUpdate.c) : null} />
+      </div>
+      <div className="main-content">
+        <div className="chart-container">
+        {marketData && marketData?.length > 0 ? (
+            <TradingViewChart symbol={selectedPair} />
+          ) : (
+            <p>Loading chart data...</p>
+          )}        
+        </div>
+        <div className="order-book-container">
+          {orderBook && <OrderBook bids={orderBook.bids} asks={orderBook.asks} />}
+        </div>
+        <div className="order-form-container">
+          <OrderForm onSubmit={handleOrderSubmit} balance={balance} pair={selectedPair} />
+        </div>
+        <div className="order-history-container">
+          <OrderHistory orders={orders} onCancel={handleOrderCancel} />
+        </div>
+      </div>
     </div>
   );
 }
