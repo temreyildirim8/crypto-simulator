@@ -1,0 +1,52 @@
+.order-history table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.order-history th,
+.order-history td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.order-history th {
+  background-color: #f2f2f2;
+}
+
+.order-history button,
+.order-history .placeholder {
+  width: 80px;
+  height: 30px;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 30px;
+}
+
+.order-history button {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.order-history .placeholder {
+  background-color: transparent;
+}
+
+.order-form input[type="range"] {
+  width: 100%;
+  margin-top: 5px;
+}
+
+.order-form input[type="range"] + span {
+  display: inline-block;
+  width: 50px;
+  text-align: right;
+}
+
+.order-form button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
