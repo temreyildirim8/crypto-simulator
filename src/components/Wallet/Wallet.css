@@ -1,0 +1,24 @@
+.wallet {
+  background-color: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.wallet h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.wallet-info p {
+  margin: 5px 0;
+}
+
+.wallet ul {
+  list-style-type: none; 
+  padding-left: 0;
+}
+
+.wallet li {
+  margin-bottom: 5px;
+}

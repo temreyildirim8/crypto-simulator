@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './OrderForm.css';
 
 function OrderForm({ onSubmit, balance, pair, lastPrice, isDisabled }) {
-  const [orderType, setOrderType] = useState('BUY');
+  const [orderType, setOrderType] = useState('BUY_LIMIT');
   const [price, setPrice] = useState(lastPrice?.toString() || '');
   const [quantity, setQuantity] = useState('');
   const [balancePercent, setBalancePercent] = useState(0);
@@ -34,7 +34,7 @@ function OrderForm({ onSubmit, balance, pair, lastPrice, isDisabled }) {
   };
 
   const updateQuantityFromBalancePercent = () => {
-    const maxQuantity = orderType === 'BUY' ? balance / parseFloat(price || 1) : balance;
+    const maxQuantity = orderType.includes('BUY') ? balance / parseFloat(price || 1) : balance;
     const newQuantity = (maxQuantity * balancePercent) / 100;
     setQuantity(newQuantity.toFixed(8));
   };
@@ -42,7 +42,7 @@ function OrderForm({ onSubmit, balance, pair, lastPrice, isDisabled }) {
   const handleQuantityChange = (e) => {
     const newQuantity = parseFloat(e.target.value);
     setQuantity(e.target.value);
-    const maxQuantity = orderType === 'BUY' ? balance / parseFloat(price || 1) : balance;
+    const maxQuantity = orderType.includes('BUY') ? balance / parseFloat(price || 1) : balance;
     const newBalancePercent = (newQuantity / maxQuantity) * 100;
     setBalancePercent(newBalancePercent);
   };
@@ -54,15 +54,25 @@ function OrderForm({ onSubmit, balance, pair, lastPrice, isDisabled }) {
         <label>
           Order Type:
           <select value={orderType} onChange={(e) => setOrderType(e.target.value)}>
-            <option value="BUY">Buy</option>
-            <option value="SELL">Sell</option>
+            <option value="BUY_LIMIT">Buy Limit</option>
+            <option value="SELL_LIMIT">Sell Limit</option>
+            <option value="MARKET_BUY">Market Buy</option>
+            <option value="MARKET_SELL">Market Sell</option>
           </select>
         </label>
       </div>
       <div className="form-group">
         <label>
           Price:
-          <input type="number" value={price} onChange={handlePriceChange} required min="0" step="0.01" />
+          <input 
+            type="number" 
+            value={price} 
+            onChange={handlePriceChange} 
+            required 
+            min="0" 
+            step="0.01" 
+            disabled={orderType.includes('MARKET')}
+          />
         </label>
       </div>
       <div className="form-group">
@@ -85,7 +95,7 @@ function OrderForm({ onSubmit, balance, pair, lastPrice, isDisabled }) {
             type="range" 
             min="0" 
             max="100" 
-            step="1" 
+            step="10" 
             value={balancePercent} 
             onChange={handleBalancePercentChange}
           />
@@ -93,7 +103,9 @@ function OrderForm({ onSubmit, balance, pair, lastPrice, isDisabled }) {
         </label>
       </div>
 
-      <button type="submit" disabled={isDisabled}>Place Order</button>
+      <button type="submit" disabled={isDisabled || balancePercent <= 0 || Number(quantity) <= 0}>
+        {orderType.replace('_', ' ')}
+      </button>
     </form>
   );
 }
