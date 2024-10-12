@@ -29,7 +29,7 @@ function TradingSimulator() {
 
   return (
     <div className="trading-simulator">
-      <h1 className="title">EXZi Trading Simulator</h1>
+      <h1 className="title">Trading Simulator</h1>
       <div className="controls">
         <PairSelector selectedPair={selectedPair} onSelect={setSelectedPair} />
         <Wallet balance={balance} />

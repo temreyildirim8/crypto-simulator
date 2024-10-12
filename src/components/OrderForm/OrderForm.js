@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import './OrderForm.css';
 
 function OrderForm({ onSubmit, balance, pair, lastPrice, isDisabled }) {
@@ -16,6 +16,10 @@ function OrderForm({ onSubmit, balance, pair, lastPrice, isDisabled }) {
   useEffect(() => {
     updateQuantityFromBalancePercent();
   }, [balancePercent, price, orderType, balance]);
+
+  const isButtonDisabled = useMemo(() => {
+      return isDisabled || balance <= 0 || quantity <= 0 || quantity * price  <= 1 || balancePercent <= 0
+  }, [isDisabled, balance, quantity, balancePercent, price])
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -103,7 +107,7 @@ function OrderForm({ onSubmit, balance, pair, lastPrice, isDisabled }) {
         </label>
       </div>
 
-      <button type="submit" disabled={isDisabled || balancePercent <= 0 || Number(quantity) <= 0}>
+      <button type="submit" disabled={isButtonDisabled}>
         {orderType.replace('_', ' ')}
       </button>
     </form>
