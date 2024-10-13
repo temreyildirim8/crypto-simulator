@@ -4,7 +4,7 @@ import TradingViewChart from '../TradingViewChart';
 import OrderBook from '../OrderBook';
 import OrderForm from '../OrderForm/OrderForm';
 import OrderHistory from '../OrderHistory/OrderHistory';
-import PairSelector from '../PairSelector';
+import PairSelector from '../PairSelector/PairSelector';
 import Wallet from '../Wallet/Wallet';
 import { fetchOrderBook } from '../../services/api';
 import { useTradingContext } from '../../contexts/TradingContext';

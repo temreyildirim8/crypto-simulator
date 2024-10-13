@@ -1,0 +1,29 @@
+.pair-selector {
+  padding: 16px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 16px;
+}
+
+.label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.pair-selector-select {
+  width: 20%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  .pair-selector-select {
+    width: 100%;
+  }
+}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import './OrderForm.css';
 
-function OrderForm({ onSubmit, balance, pair, lastPrice, isDisabled }) {
+function OrderForm({ onSubmit, balance, lastPrice, isDisabled }) {
   const [orderType, setOrderType] = useState('BUY_LIMIT');
   const [price, setPrice] = useState(lastPrice?.toString() || '');
   const [quantity, setQuantity] = useState('');
@@ -18,8 +18,8 @@ function OrderForm({ onSubmit, balance, pair, lastPrice, isDisabled }) {
   }, [balancePercent, price, orderType, balance]);
 
   const isButtonDisabled = useMemo(() => {
-      return isDisabled || balance <= 0 || quantity <= 0 || quantity * price  <= 1 || balancePercent <= 0
-  }, [isDisabled, balance, quantity, balancePercent, price])
+    return isDisabled || balance <= 0 || quantity <= 0 || quantity * price <= 1 || balancePercent <= 0;
+  }, [isDisabled, balance, quantity, balancePercent, price]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -53,11 +53,15 @@ function OrderForm({ onSubmit, balance, pair, lastPrice, isDisabled }) {
 
   return (
     <form onSubmit={handleSubmit} className="order-form">
-      <h2>Place Order</h2>
+      <h2 className="title">Place Order</h2>
       <div className="form-group">
-        <label>
+        <label className="label">
           Order Type:
-          <select value={orderType} onChange={(e) => setOrderType(e.target.value)}>
+          <select 
+            className="select"
+            value={orderType} 
+            onChange={(e) => setOrderType(e.target.value)}
+          >
             <option value="BUY_LIMIT">Buy Limit</option>
             <option value="SELL_LIMIT">Sell Limit</option>
             <option value="MARKET_BUY">Market Buy</option>
@@ -66,10 +70,11 @@ function OrderForm({ onSubmit, balance, pair, lastPrice, isDisabled }) {
         </label>
       </div>
       <div className="form-group">
-        <label>
+        <label className="label">
           Price:
           <input 
             type="number" 
+            className="input"
             value={price} 
             onChange={handlePriceChange} 
             required 
@@ -80,10 +85,11 @@ function OrderForm({ onSubmit, balance, pair, lastPrice, isDisabled }) {
         </label>
       </div>
       <div className="form-group">
-        <label>
+        <label className="label">
           Quantity:
           <input 
             type="number" 
+            className="input"
             value={quantity} 
             onChange={handleQuantityChange} 
             required 
@@ -93,21 +99,26 @@ function OrderForm({ onSubmit, balance, pair, lastPrice, isDisabled }) {
         </label>
       </div>
       <div className="form-group">
-        <label>
+        <label className="label">
           Balance Percent:
           <input 
             type="range" 
+            className="slider"
             min="0" 
             max="100" 
-            step="10" 
+            step="1" 
             value={balancePercent} 
             onChange={handleBalancePercentChange}
           />
-          <span>{balancePercent.toFixed(0)}%</span>
+          <span className="percent">{balancePercent.toFixed(0)}%</span>
         </label>
       </div>
 
-      <button type="submit" disabled={isButtonDisabled}>
+      <button 
+        type="submit" 
+        className={`submit-btn ${isButtonDisabled ? 'disabled' : ''}`}
+        disabled={isButtonDisabled}
+      >
         {orderType.replace('_', ' ')}
       </button>
     </form>
