@@ -62,7 +62,7 @@ function OrderHistory({ orders, onCancel }) {
                 {order.status === 'Pending' ? (
                   <button onClick={() => onCancel(order.id)}>Cancel</button>
                 ) : (
-                  <span className="placeholder">-</span>
+                  <button disabled className='cancel-disabled'>Cancel</button>
                 )}
               </td>
             </tr>

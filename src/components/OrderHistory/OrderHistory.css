@@ -31,8 +31,12 @@
   background-color: transparent;
 }
 
+.order-history .cancel-disabled {
+  background-color: darkgray;
+}
+
 /* Responsive Styles */
-@media (min-width: 769px) {
+@media (min-width: 1025px) {
   .mobile-order-list {
     display: none;
   }
@@ -55,7 +59,7 @@
   }
 }
 
-@media (max-width: 768px) {  
+@media (max-width: 1024px) {  
   .order-history table {
     display: none
   }
