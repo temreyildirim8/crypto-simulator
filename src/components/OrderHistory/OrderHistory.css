@@ -33,6 +33,7 @@
 
 .order-history .cancel-disabled {
   background-color: darkgray;
+  cursor: not-allowed;
 }
 
 /* Responsive Styles */
