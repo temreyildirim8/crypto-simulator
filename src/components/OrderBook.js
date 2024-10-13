@@ -1,32 +1,31 @@
 import React from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
+import { Paper, Typography, Box } from '@mui/material';
 
 const OrderBook = ({ bids, asks }) => {
   return (
-    <TableContainer component={Paper}>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Price</TableCell>
-            <TableCell>Amount</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
+    <Paper sx={{ p: 2 }}>
+      <h2>Order Book</h2>
+      <Box sx={{ display: 'flex' }}>
+        <Box sx={{ width: '50%', pr: 1 }}>
+          <Typography variant="subtitle1" sx={{ fontWeight: 'bold', textAlign: 'right' }}>Asks</Typography>
           {asks?.map((ask, index) => (
-            <TableRow key={`ask-${index}`}>
-              <TableCell>{ask.price}</TableCell>
-              <TableCell>{ask.amount}</TableCell>
-            </TableRow>
+            <Box key={`ask-${index}`} sx={{ display: 'flex', justifyContent: 'space-between' }}>
+              <Typography color="error">{ask.price}</Typography>
+              <Typography>{ask.amount}</Typography>
+            </Box>
           ))}
+        </Box>
+        <Box sx={{ width: '50%', pl: 1 }}>
+          <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>Bids</Typography>
           {bids?.map((bid, index) => (
-            <TableRow key={`bid-${index}`}>
-              <TableCell>{bid.price}</TableCell>
-              <TableCell>{bid.amount}</TableCell>
-            </TableRow>
+            <Box key={`bid-${index}`} sx={{ display: 'flex', justifyContent: 'space-between' }}>
+              <Typography color="success.main">{bid.price}</Typography>
+              <Typography>{bid.amount}</Typography>
+            </Box>
           ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+        </Box>
+      </Box>
+    </Paper>
   );
 };
 

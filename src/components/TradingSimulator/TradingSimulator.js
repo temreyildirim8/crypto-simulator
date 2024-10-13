@@ -10,6 +10,21 @@ import { fetchOrderBook } from '../../services/api';
 import { useTradingContext } from '../../contexts/TradingContext';
 import './TradingSimulator.css';
 
+function Skeleton({ height, width = '100%' }) {
+  return (
+    <div
+      className="skeleton"
+      style={{
+        height,
+        width,
+        backgroundColor: '#e0e0e0',
+        borderRadius: '4px',
+        animation: 'pulse 1.5s infinite',
+      }}
+    ></div>
+  );
+}
+
 function TradingSimulator() {
   const {
     selectedPair,
@@ -21,7 +36,7 @@ function TradingSimulator() {
     tickerUpdate,
   } = useTradingContext();
 
-  const { data: orderBook } = useQuery({
+  const { data: orderBook, isLoading: isOrderBookLoading } = useQuery({
     queryKey: ['orderBook', selectedPair],
     queryFn: () => fetchOrderBook(selectedPair),
     refetchInterval: 5000,
@@ -32,28 +47,46 @@ function TradingSimulator() {
       <h1 className="title">Trading Simulator</h1>
       <div className="controls">
         <PairSelector selectedPair={selectedPair} onSelect={setSelectedPair} />
-        <Wallet balance={balance} />
+        {balance !== undefined ? (
+          <Wallet balance={balance} />
+        ) : (
+          <Skeleton height="50px" />
+        )}
       </div>
       <div className="main-content">
         <div className="chart-container">
-          <TradingViewChart symbol={selectedPair} />
+          {selectedPair ? (
+            <TradingViewChart symbol={selectedPair} />
+          ) : (
+            <Skeleton height="300px" />
+          )}
         </div>
         <div className="order-book-container">
-          {orderBook && (
+          {orderBook && !isOrderBookLoading ? (
             <OrderBook bids={orderBook.bids} asks={orderBook.asks} />
+          ) : (
+            <Skeleton height="300px" />
           )}
         </div>
         <div className="order-form-container">
-          <OrderForm
-            onSubmit={handleOrderSubmit}
-            balance={balance}
-            pair={selectedPair}
-            lastPrice={tickerUpdate ? parseFloat(tickerUpdate.c) : null}
-            isDisabled={balance <= 0}
-          />
+          {balance !== undefined && selectedPair && tickerUpdate ? (
+            <OrderForm
+              onSubmit={handleOrderSubmit}
+              balance={balance}
+              pair={selectedPair}
+              lastPrice={tickerUpdate ? parseFloat(tickerUpdate.c) : null}
+              isDisabled={balance <= 0}
+            />
+          ) : (
+            <Skeleton height="200x" />
+          )}
         </div>
         <div className="order-history-container">
-          <OrderHistory orders={orders} onCancel={handleOrderCancel} />
+          {orders ? (
+            <OrderHistory orders={orders} onCancel={handleOrderCancel} />
+          ) : (
+            <Skeleton height="200px" />
+          )}
         </div>
       </div>
     </div>

@@ -4,8 +4,10 @@ import './Wallet.css';
 function Wallet({ balance }) {
   return (
     <div className="wallet">
-      <h2>Wallet</h2>
-      <p>USDT: {balance.toFixed(2)}</p>
+      <div className="wallet-inner">
+        <h2>Wallet</h2>
+        <p>USDT: {balance.toFixed(2)}</p>
+      </div>
     </div>
   );
 }

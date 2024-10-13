@@ -79,7 +79,7 @@ function OrderForm({ onSubmit, balance, lastPrice, isDisabled }) {
             onChange={handlePriceChange} 
             required 
             min="0" 
-            step="0.01" 
+            step="0.0000001" 
             disabled={orderType.includes('MARKET')}
           />
         </label>
@@ -106,7 +106,7 @@ function OrderForm({ onSubmit, balance, lastPrice, isDisabled }) {
             className="slider"
             min="0" 
             max="100" 
-            step="1" 
+            step="20" 
             value={balancePercent} 
             onChange={handleBalancePercentChange}
           />
