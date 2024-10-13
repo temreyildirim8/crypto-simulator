@@ -1,16 +1,15 @@
 import React from 'react';
-import { FormControl, InputLabel, Select, MenuItem, Box } from '@mui/material';
+import { FormControl, Typography, Select, MenuItem, Box } from '@mui/material';
 
 function PairSelector({ selectedPair, onSelect }) {
   return (
     <Box sx={{ minWidth: 120 }}>
       <FormControl fullWidth>
-        <InputLabel id="pair-selector-label" color='primary'>Select Pair</InputLabel>
+        <Typography id="pair-selector-label" variant='span' color='textPrimary' textAlign={'right'} pr={1}>Select Pair:</Typography>
         <Select
           labelId="pair-selector-label"
           id="pair-selector"
           value={selectedPair}
-          label="Select Pair"
           onChange={(e) => onSelect(e.target.value)}
           MenuProps={{
             anchorOrigin: {
