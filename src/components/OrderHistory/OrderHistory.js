@@ -3,12 +3,14 @@ import { Typography } from '@mui/material';
 import './OrderHistory.css';
 
 function OrderHistory({ orders, onCancel }) {
+  const reversedOrders = [...orders]?.reverse();
+  
   return (
     <div className="order-history">
       <Typography variant="h5" gutterBottom >Order History</Typography>
       {/* Mobile View */}
       <div className="mobile-order-list">
-        {orders?.map((order) => (
+        {reversedOrders?.map((order) => (
           <div className="order-item" key={order.id}>
             <div><strong>Type:</strong> {order.orderType}</div>
             <div><strong>Price:</strong> ${order.price.toFixed(2)}</div>
@@ -45,7 +47,7 @@ function OrderHistory({ orders, onCancel }) {
           </tr>
         </thead>
         <tbody>
-          {orders?.map((order) => (
+          {reversedOrders?.map((order) => (
             <tr key={order.id}>
               <td>{order.orderType}</td>
               <td>${order.price.toFixed(2)}</td>
