@@ -14,7 +14,7 @@ function Wallet() {
   return (
     <div className="wallet">
       <div className="wallet-inner">
-        <h2>Wallet</h2>
+        <h2>Balance</h2>
         <p>USDT : {balance?.toFixed(2)}</p>
         <Button 
           variant="contained" 
