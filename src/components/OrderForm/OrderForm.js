@@ -78,7 +78,9 @@ function OrderForm({
       ? balance / parseFloat(price || 1)
       : balance;
     const newQuantity = (maxQuantity * balancePercent) / 100;
-    setQuantity(newQuantity.toFixed(8));
+    if (Math.sign(newQuantity) === 1) {
+      setQuantity(newQuantity.toFixed(8));
+    }
   };
 
   const handleQuantityChange = (e) => {
