@@ -23,7 +23,7 @@ export const TradingProvider = ({ children }) => {
       ...orderData,
       pair: selectedPair,
       orderCreationDate: new Date().toISOString(),
-      orderCompleteDate: null,
+      orderCompleteDate: new Date().toISOString(),
       status: orderData.orderType.includes('MARKET') ? 'Filled' : 'Pending',
     };
 

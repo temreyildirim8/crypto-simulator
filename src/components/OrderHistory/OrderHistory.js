@@ -10,7 +10,6 @@ function OrderHistory({ orders, onCancel }) {
       <div className="mobile-order-list">
         {orders?.map((order) => (
           <div className="order-item" key={order.id}>
-            <div><strong>ID:</strong> {order.id}</div>
             <div><strong>Type:</strong> {order.orderType}</div>
             <div><strong>Price:</strong> ${order.price.toFixed(2)}</div>
             <div><strong>Quantity:</strong> {order.quantity}</div>
@@ -34,7 +33,6 @@ function OrderHistory({ orders, onCancel }) {
       <table>
         <thead>
           <tr>
-            <th>ID</th>
             <th>Type</th>
             <th>Price</th>
             <th>Quantity</th>
@@ -49,7 +47,6 @@ function OrderHistory({ orders, onCancel }) {
         <tbody>
           {orders?.map((order) => (
             <tr key={order.id}>
-              <td>{order.id}</td>
               <td>{order.orderType}</td>
               <td>${order.price.toFixed(2)}</td>
               <td>{order.quantity}</td>
