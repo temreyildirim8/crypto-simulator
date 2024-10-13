@@ -1,21 +1,27 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect, useMemo } from 'react';
-import { 
-  TextField, 
-  Select, 
-  MenuItem, 
-  FormControl, 
-  InputLabel, 
-  Slider, 
-  Button, 
-  Typography, 
-  Box 
-} from '@mui/material';
+import React, { useState, useEffect, useMemo } from "react";
+import {
+  TextField,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  Slider,
+  Button,
+  Typography,
+  Box,
+} from "@mui/material";
 
-function OrderForm({ onSubmit, balance, lastPrice, isDisabled, selectedOrder }) {
-  const [orderType, setOrderType] = useState('BUY_LIMIT');
-  const [price, setPrice] = useState(lastPrice?.toString() || '');
-  const [quantity, setQuantity] = useState('');
+function OrderForm({
+  onSubmit,
+  balance,
+  lastPrice,
+  isDisabled,
+  selectedOrder,
+}) {
+  const [orderType, setOrderType] = useState("BUY_LIMIT");
+  const [price, setPrice] = useState(lastPrice?.toString() || "");
+  const [quantity, setQuantity] = useState("");
   const [balancePercent, setBalancePercent] = useState(0);
 
   useEffect(() => {
@@ -38,13 +44,23 @@ function OrderForm({ onSubmit, balance, lastPrice, isDisabled, selectedOrder }) 
   }, [selectedOrder]);
 
   const isButtonDisabled = useMemo(() => {
-    return isDisabled || balance <= 0 || quantity <= 0 || quantity * price <= 1 || balancePercent <= 0;
+    return (
+      isDisabled ||
+      balance <= 0 ||
+      quantity <= 0 ||
+      quantity * price <= 1 ||
+      balancePercent <= 0
+    );
   }, [isDisabled, balance, quantity, balancePercent, price]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit({ orderType, price: parseFloat(price), quantity: parseFloat(quantity) });
-    setQuantity('');
+    onSubmit({
+      orderType,
+      price: parseFloat(price),
+      quantity: parseFloat(quantity),
+    });
+    setQuantity("");
     setBalancePercent(0);
   };
 
@@ -58,7 +74,9 @@ function OrderForm({ onSubmit, balance, lastPrice, isDisabled, selectedOrder }) 
   };
 
   const updateQuantityFromBalancePercent = () => {
-    const maxQuantity = orderType.includes('BUY') ? balance / parseFloat(price || 1) : balance;
+    const maxQuantity = orderType.includes("BUY")
+      ? balance / parseFloat(price || 1)
+      : balance;
     const newQuantity = (maxQuantity * balancePercent) / 100;
     setQuantity(newQuantity.toFixed(8));
   };
@@ -70,13 +88,19 @@ function OrderForm({ onSubmit, balance, lastPrice, isDisabled, selectedOrder }) 
   };
 
   const updateBalancePercentFromQuantity = (newQuantity) => {
-    const maxQuantity = orderType.includes('BUY') ? balance / parseFloat(price || 1) : balance;
+    const maxQuantity = orderType.includes("BUY")
+      ? balance / parseFloat(price || 1)
+      : balance;
     const newBalancePercent = (newQuantity / maxQuantity) * 100;
     setBalancePercent(newBalancePercent);
   };
 
   return (
-    <Box component="form" onSubmit={handleSubmit} sx={{ p: 3, bgcolor: 'background.paper', borderRadius: 2, boxShadow: 1 }}>
+    <Box
+      component="form"
+      onSubmit={handleSubmit}
+      sx={{ p: 3, bgcolor: "background.paper", borderRadius: 2, boxShadow: 1 }}
+    >
       <Typography variant="h5" component="h2" gutterBottom>
         Place Order
       </Typography>
@@ -102,8 +126,13 @@ function OrderForm({ onSubmit, balance, lastPrice, isDisabled, selectedOrder }) 
         value={price}
         onChange={handlePriceChange}
         required
-        inputProps={{ min: "0", step: "0.0000001" }}
-        disabled={orderType.includes('MARKET')}
+        slotProps={{
+          input: {
+            min: "0",
+            step: "0.0000001"
+          }
+        }}
+        disabled={orderType.includes("MARKET")}
       />
       <TextField
         fullWidth
@@ -113,7 +142,12 @@ function OrderForm({ onSubmit, balance, lastPrice, isDisabled, selectedOrder }) 
         value={quantity}
         onChange={handleQuantityChange}
         required
-        inputProps={{ min: "0", step: "0.00000001" }}
+        slotProps={{
+          input: {
+            min: "0",
+            step: "0.0000001",
+          },
+        }}
       />
       <Box sx={{ mt: 2, mb: 1 }}>
         <Typography gutterBottom>Balance Percent</Typography>
@@ -125,6 +159,7 @@ function OrderForm({ onSubmit, balance, lastPrice, isDisabled, selectedOrder }) 
           marks
           min={0}
           max={100}
+          style={{ color: "rgb(32, 100, 129)" }}
         />
       </Box>
       <Button
@@ -133,8 +168,9 @@ function OrderForm({ onSubmit, balance, lastPrice, isDisabled, selectedOrder }) 
         fullWidth
         disabled={isButtonDisabled}
         sx={{ mt: 2 }}
+        style={{ backgroundColor: "rgb(32, 100, 129)" }}
       >
-        {orderType.replace('_', ' ')}
+        {orderType.replace("_", " ")}
       </Button>
     </Box>
   );

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import { useTradingContext } from '../../contexts/TradingContext';
 import './Wallet.css';
 
@@ -21,6 +21,7 @@ function Wallet() {
           color="primary" 
           onClick={handleAddBalance}
           size="small"
+          style={{ backgroundColor: 'rgb(32, 100, 129)'}}
         >
           Add Balance
         </Button>

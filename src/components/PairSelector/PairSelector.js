@@ -5,7 +5,7 @@ function PairSelector({ selectedPair, onSelect }) {
   return (
     <Box sx={{ minWidth: 120 }}>
       <FormControl fullWidth>
-        <Typography id="pair-selector-label" variant='span' color='textPrimary' textAlign={'right'} pr={1}>Select Pair:</Typography>
+        <Typography id="pair-selector-label" variant='span' color='textPrimary' textAlign={'right'} pr={1.6}>Select Pair:</Typography>
         <Select
           labelId="pair-selector-label"
           id="pair-selector"
