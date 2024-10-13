@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import useWebSocket from '../hooks/useWebSocket';
+import { toast } from 'react-toastify';
 
 const TradingContext = createContext();
 
@@ -69,6 +70,8 @@ export const TradingProvider = ({ children }) => {
               if (order.orderType === 'SELL_LIMIT') {
                 updateBalance(order.price * order.quantity);
               }
+              // Show toast notification for completed order
+              toast.success(`Your ${order.orderType} order for ${order.pair} is completed`);
               return updatedOrder;
             }
           }
