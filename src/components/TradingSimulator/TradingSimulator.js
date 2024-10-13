@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import TradingViewChart from '../TradingViewChart';
 import OrderBook from '../OrderBook';
@@ -36,11 +36,17 @@ function TradingSimulator() {
     tickerUpdate,
   } = useTradingContext();
 
+  const [selectedOrder, setSelectedOrder] = useState(null);
+
   const { data: orderBook, isLoading: isOrderBookLoading } = useQuery({
     queryKey: ['orderBook', selectedPair],
     queryFn: () => fetchOrderBook(selectedPair),
     refetchInterval: 5000,
   });
+
+  const handleOrderSelect = (type, price, amount) => {
+    setSelectedOrder({ type, price, amount });
+  };
 
   return (
     <div className="trading-simulator">
@@ -50,7 +56,7 @@ function TradingSimulator() {
         {balance !== undefined ? (
           <Wallet balance={balance} />
         ) : (
-          <Skeleton height="50px" />
+          <Skeleton height="100px" />
         )}
       </div>
       <div className="main-content">
@@ -63,7 +69,11 @@ function TradingSimulator() {
         </div>
         <div className="order-book-container">
           {orderBook && !isOrderBookLoading ? (
-            <OrderBook bids={orderBook.bids} asks={orderBook.asks} />
+            <OrderBook 
+              bids={orderBook.bids} 
+              asks={orderBook.asks} 
+              onOrderSelect={handleOrderSelect}
+            />
           ) : (
             <Skeleton height="300px" />
           )}
@@ -76,9 +86,10 @@ function TradingSimulator() {
               pair={selectedPair}
               lastPrice={tickerUpdate ? parseFloat(tickerUpdate.c) : null}
               isDisabled={balance <= 0}
+              selectedOrder={selectedOrder}
             />
           ) : (
-            <Skeleton height="200x" />
+            <Skeleton height="200px" />
           )}
         </div>
         <div className="order-history-container">

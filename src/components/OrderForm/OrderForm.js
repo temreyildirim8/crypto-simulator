@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useMemo } from 'react';
 import { 
   TextField, 
@@ -11,7 +12,7 @@ import {
   Box 
 } from '@mui/material';
 
-function OrderForm({ onSubmit, balance, lastPrice, isDisabled }) {
+function OrderForm({ onSubmit, balance, lastPrice, isDisabled, selectedOrder }) {
   const [orderType, setOrderType] = useState('BUY_LIMIT');
   const [price, setPrice] = useState(lastPrice?.toString() || '');
   const [quantity, setQuantity] = useState('');
@@ -26,6 +27,15 @@ function OrderForm({ onSubmit, balance, lastPrice, isDisabled }) {
   useEffect(() => {
     updateQuantityFromBalancePercent();
   }, [balancePercent, price, orderType, balance]);
+
+  useEffect(() => {
+    if (selectedOrder) {
+      setOrderType(selectedOrder.type);
+      setPrice(selectedOrder.price.toString());
+      setQuantity(selectedOrder.amount.toString());
+      updateBalancePercentFromQuantity(selectedOrder.amount);
+    }
+  }, [selectedOrder]);
 
   const isButtonDisabled = useMemo(() => {
     return isDisabled || balance <= 0 || quantity <= 0 || quantity * price <= 1 || balancePercent <= 0;
@@ -56,6 +66,10 @@ function OrderForm({ onSubmit, balance, lastPrice, isDisabled }) {
   const handleQuantityChange = (e) => {
     const newQuantity = parseFloat(e.target.value);
     setQuantity(e.target.value);
+    updateBalancePercentFromQuantity(newQuantity);
+  };
+
+  const updateBalancePercentFromQuantity = (newQuantity) => {
     const maxQuantity = orderType.includes('BUY') ? balance / parseFloat(price || 1) : balance;
     const newBalancePercent = (newQuantity / maxQuantity) * 100;
     setBalancePercent(newBalancePercent);

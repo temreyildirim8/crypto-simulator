@@ -1,11 +1,11 @@
 import React from 'react';
+import { Typography } from '@mui/material';
 import './OrderHistory.css';
 
 function OrderHistory({ orders, onCancel }) {
   return (
     <div className="order-history">
-      <h2>Order History</h2>
-
+      <Typography variant="h5" gutterBottom >Order History</Typography>
       {/* Mobile View */}
       <div className="mobile-order-list">
         {orders?.map((order) => (
