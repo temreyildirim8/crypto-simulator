@@ -10,8 +10,8 @@ const OrderBook = ({ bids, asks }) => {
           <Typography variant="subtitle1" sx={{ fontWeight: 'bold', textAlign: 'right' }}>Asks</Typography>
           {asks?.map((ask, index) => (
             <Box key={`ask-${index}`} sx={{ display: 'flex', justifyContent: 'space-between' }}>
-              <Typography color="error">{ask.price}</Typography>
               <Typography>{ask.amount}</Typography>
+              <Typography color="error">{ask.price}</Typography>
             </Box>
           ))}
         </Box>

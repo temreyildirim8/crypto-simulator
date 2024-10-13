@@ -29,6 +29,7 @@ const TradingViewChart = ({ symbol }) => {
         "MACD@tv-basicstudies",
         "RSI@tv-basicstudies"
       ],
+      fullScreen: true
     });
   }, [symbol]);
 

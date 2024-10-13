@@ -1,5 +1,15 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import './OrderForm.css';
+import { 
+  TextField, 
+  Select, 
+  MenuItem, 
+  FormControl, 
+  InputLabel, 
+  Slider, 
+  Button, 
+  Typography, 
+  Box 
+} from '@mui/material';
 
 function OrderForm({ onSubmit, balance, lastPrice, isDisabled }) {
   const [orderType, setOrderType] = useState('BUY_LIMIT');
@@ -33,8 +43,8 @@ function OrderForm({ onSubmit, balance, lastPrice, isDisabled }) {
     updateQuantityFromBalancePercent();
   };
 
-  const handleBalancePercentChange = (e) => {
-    setBalancePercent(parseFloat(e.target.value));
+  const handleBalancePercentChange = (event, newValue) => {
+    setBalancePercent(newValue);
   };
 
   const updateQuantityFromBalancePercent = () => {
@@ -52,76 +62,67 @@ function OrderForm({ onSubmit, balance, lastPrice, isDisabled }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="order-form">
-      <h2 className="title">Place Order</h2>
-      <div className="form-group">
-        <label className="label">
-          Order Type:
-          <select 
-            className="select"
-            value={orderType} 
-            onChange={(e) => setOrderType(e.target.value)}
-          >
-            <option value="BUY_LIMIT">Buy Limit</option>
-            <option value="SELL_LIMIT">Sell Limit</option>
-            <option value="MARKET_BUY">Market Buy</option>
-            <option value="MARKET_SELL">Market Sell</option>
-          </select>
-        </label>
-      </div>
-      <div className="form-group">
-        <label className="label">
-          Price:
-          <input 
-            type="number" 
-            className="input"
-            value={price} 
-            onChange={handlePriceChange} 
-            required 
-            min="0" 
-            step="0.0000001" 
-            disabled={orderType.includes('MARKET')}
-          />
-        </label>
-      </div>
-      <div className="form-group">
-        <label className="label">
-          Quantity:
-          <input 
-            type="number" 
-            className="input"
-            value={quantity} 
-            onChange={handleQuantityChange} 
-            required 
-            min="0" 
-            step="0.00000001"
-          />
-        </label>
-      </div>
-      <div className="form-group">
-        <label className="label">
-          Balance Percent:
-          <input 
-            type="range" 
-            className="slider"
-            min="0" 
-            max="100" 
-            step="20" 
-            value={balancePercent} 
-            onChange={handleBalancePercentChange}
-          />
-          <span className="percent">{balancePercent.toFixed(0)}%</span>
-        </label>
-      </div>
-
-      <button 
-        type="submit" 
-        className={`submit-btn ${isButtonDisabled ? 'disabled' : ''}`}
+    <Box component="form" onSubmit={handleSubmit} sx={{ p: 3, bgcolor: 'background.paper', borderRadius: 2, boxShadow: 1 }}>
+      <Typography variant="h5" component="h2" gutterBottom>
+        Place Order
+      </Typography>
+      <FormControl fullWidth margin="normal">
+        <InputLabel id="order-type-label">Order Type</InputLabel>
+        <Select
+          labelId="order-type-label"
+          value={orderType}
+          onChange={(e) => setOrderType(e.target.value)}
+          label="Order Type"
+        >
+          <MenuItem value="BUY_LIMIT">Buy Limit</MenuItem>
+          <MenuItem value="SELL_LIMIT">Sell Limit</MenuItem>
+          <MenuItem value="MARKET_BUY">Market Buy</MenuItem>
+          <MenuItem value="MARKET_SELL">Market Sell</MenuItem>
+        </Select>
+      </FormControl>
+      <TextField
+        fullWidth
+        margin="normal"
+        label="Price"
+        type="number"
+        value={price}
+        onChange={handlePriceChange}
+        required
+        inputProps={{ min: "0", step: "0.0000001" }}
+        disabled={orderType.includes('MARKET')}
+      />
+      <TextField
+        fullWidth
+        margin="normal"
+        label="Quantity"
+        type="number"
+        value={quantity}
+        onChange={handleQuantityChange}
+        required
+        inputProps={{ min: "0", step: "0.00000001" }}
+      />
+      <Box sx={{ mt: 2, mb: 1 }}>
+        <Typography gutterBottom>Balance Percent</Typography>
+        <Slider
+          value={balancePercent}
+          onChange={handleBalancePercentChange}
+          valueLabelDisplay="auto"
+          step={20}
+          marks
+          min={0}
+          max={100}
+        />
+      </Box>
+      <Button
+        type="submit"
+        variant="contained"
+        fullWidth
         disabled={isButtonDisabled}
+        sx={{ mt: 2 }}
       >
         {orderType.replace('_', ' ')}
-      </button>
-    </form>
+      </Button>
+    </Box>
   );
 }
 

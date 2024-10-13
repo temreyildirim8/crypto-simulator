@@ -1,23 +1,25 @@
 import React from 'react';
-import './PairSelector.css';
+import { FormControl, InputLabel, Select, MenuItem, Box } from '@mui/material';
 
 function PairSelector({ selectedPair, onSelect }) {
   return (
-    <div className="pair-selector">
-      <div className="pair-selector-inner">
-        <label className="label">Select Pair:</label>
-        <select 
-          className="pair-selector-select"
-          value={selectedPair} 
+    <Box sx={{ minWidth: 120 }}>
+      <FormControl fullWidth>
+        <InputLabel id="pair-selector-label">Select Pair</InputLabel>
+        <Select
+          labelId="pair-selector-label"
+          id="pair-selector"
+          value={selectedPair}
+          label="Select Pair"
           onChange={(e) => onSelect(e.target.value)}
         >
-          <option value="BTCUSDT">BTC/USDT</option>
-          <option value="ETHUSDT">ETH/USDT</option>
-          <option value="LTCUSDT">LTC/USDT</option>
-          <option value="XRPUSDT">XRP/USDT</option>
-        </select>
-      </div>
-    </div>
+          <MenuItem value="BTCUSDT">BTC/USDT</MenuItem>
+          <MenuItem value="ETHUSDT">ETH/USDT</MenuItem>
+          <MenuItem value="LTCUSDT">LTC/USDT</MenuItem>
+          <MenuItem value="XRPUSDT">XRP/USDT</MenuItem>
+        </Select>
+      </FormControl>
+    </Box>
   );
 }
 

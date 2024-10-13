@@ -91,6 +91,7 @@ export const TradingProvider = ({ children }) => {
         handleOrderSubmit,
         handleOrderCancel,
         tickerUpdate,
+        updateBalance
       }}
     >
       {children}
