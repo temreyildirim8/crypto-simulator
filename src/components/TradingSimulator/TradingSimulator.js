@@ -40,6 +40,7 @@ function TradingSimulator() {
     balance,
     handleOrderSubmit,
     handleOrderCancel,
+    tradeUpdate,
   } = useTradingContext();
 
   const [selectedOrder, setSelectedOrder] = useState(null);
@@ -63,12 +64,16 @@ function TradingSimulator() {
       }}
     >
       <div className="title">
-
-      <div className="theme-switch">
+        <div className="theme-switch">
           <Switch checked={darkMode} onChange={toggleDarkMode} />
           <span>{darkMode ? "Dark Mode" : "Light Mode"}</span>
         </div>
         <h1>Trading Simulator</h1>
+
+        <div className="theme-switch">
+          <Switch checked={darkMode} onChange={toggleDarkMode} />
+          <span>{darkMode ? "Dark Mode" : "Light Mode"}</span>
+        </div>
       </div>
 
       <div className="controls">
@@ -103,6 +108,7 @@ function TradingSimulator() {
             onSubmit={handleOrderSubmit}
             balance={balance}
             pair={selectedPair}
+            lastPrice={tradeUpdate ? parseFloat(tradeUpdate.p) : null}
             isDisabled={balance <= 0}
             selectedOrder={selectedOrder}
           />
