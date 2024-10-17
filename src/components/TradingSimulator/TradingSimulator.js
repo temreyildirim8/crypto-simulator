@@ -8,7 +8,6 @@ import PairSelector from '../PairSelector/PairSelector';
 import Wallet from '../Wallet/Wallet';
 import { fetchOrderBook } from '../../services/api';
 import { useTradingContext } from '../../contexts/TradingContext';
-import { useTheme } from '../../contexts/ThemeContext';
 
 import './TradingSimulator.css';
 
@@ -37,7 +36,6 @@ function TradingSimulator() {
     handleOrderCancel,
     tickerUpdate,
   } = useTradingContext();
-  const { darkMode, toggleDarkMode } = useTheme();
 
   const [selectedOrder, setSelectedOrder] = useState(null);
 
@@ -55,10 +53,6 @@ function TradingSimulator() {
     <div className="trading-simulator">
       <div className="title">
         <h1>Trading Simulator</h1>
-        <div className="theme-switch">
-        <Switch checked={darkMode} onChange={toggleDarkMode} />
-        <span>{darkMode ? 'Dark Mode' : 'Light Mode'}</span>
-      </div>
       </div>
       <div className="controls">
         <PairSelector selectedPair={selectedPair} onSelect={setSelectedPair} />

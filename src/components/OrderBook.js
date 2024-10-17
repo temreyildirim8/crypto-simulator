@@ -7,7 +7,7 @@ const OrderBook = ({ onOrderSelect }) => {
   const { orderBook, selectedTimeframe, setSelectedTimeframe } = useTradingContext();
   const [bidPage, setBidPage] = useState(1);
   const [askPage, setAskPage] = useState(1);
-  const itemsPerPage = 20;
+  const itemsPerPage = 10;
 
   const timeframes = ['1m', '5m', '15m', '1h', '12h'];
 
