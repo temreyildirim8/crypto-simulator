@@ -11,6 +11,7 @@ import {
   Typography,
   Box,
 } from "@mui/material";
+import { useTheme } from '@mui/material/styles';
 
 function OrderForm({
   onSubmit,
@@ -19,6 +20,8 @@ function OrderForm({
   isDisabled,
   selectedOrder,
 }) {
+  const theme = useTheme();
+
   const [orderType, setOrderType] = useState("BUY_LIMIT");
   const [price, setPrice] = useState(lastPrice?.toString() || "");
   const [quantity, setQuantity] = useState("");
