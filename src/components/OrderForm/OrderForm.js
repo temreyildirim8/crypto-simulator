@@ -25,10 +25,10 @@ function OrderForm({
   const [balancePercent, setBalancePercent] = useState(0);
 
   useEffect(() => {
-    if (lastPrice) {
+    if (lastPrice && (orderType === 'MARKET_BUY' || orderType === 'MARKET_SELL')) {
       setPrice(lastPrice.toString());
     }
-  }, [lastPrice]);
+  }, [lastPrice, orderType]);
 
   useEffect(() => {
     updateQuantityFromBalancePercent();
