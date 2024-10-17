@@ -6,7 +6,7 @@ const useWebSocket = (symbol) => {
 
   useEffect(() => {
     const wsSymbol = symbol.toLowerCase().replace('/', '');
-    socketRef.current = new WebSocket(`wss://stream.binance.com:9443/ws/${wsSymbol}@ticker`);
+    socketRef.current = new WebSocket(`wss://stream.binance.com:9443/ws/${wsSymbol}`);
 
     socketRef.current.onopen = () => {
       console.log('WebSocket connection opened');

@@ -8,6 +8,8 @@ import PairSelector from '../PairSelector/PairSelector';
 import Wallet from '../Wallet/Wallet';
 import { fetchOrderBook } from '../../services/api';
 import { useTradingContext } from '../../contexts/TradingContext';
+import { useTheme } from '../../contexts/ThemeContext';
+
 import './TradingSimulator.css';
 
 function Skeleton({ height, width = '100%' }) {
@@ -35,6 +37,7 @@ function TradingSimulator() {
     handleOrderCancel,
     tickerUpdate,
   } = useTradingContext();
+  const { darkMode, toggleDarkMode } = useTheme();
 
   const [selectedOrder, setSelectedOrder] = useState(null);
 
@@ -50,7 +53,13 @@ function TradingSimulator() {
 
   return (
     <div className="trading-simulator">
-      <h1 className="title">Trading Simulator</h1>
+      <div className="title">
+        <h1>Trading Simulator</h1>
+        <div className="theme-switch">
+        <Switch checked={darkMode} onChange={toggleDarkMode} />
+        <span>{darkMode ? 'Dark Mode' : 'Light Mode'}</span>
+      </div>
+      </div>
       <div className="controls">
         <PairSelector selectedPair={selectedPair} onSelect={setSelectedPair} />
         {balance !== undefined ? (
@@ -79,7 +88,6 @@ function TradingSimulator() {
           )}
         </div>
         <div className="order-form-container">
-          {balance !== undefined && selectedPair && tickerUpdate ? (
             <OrderForm
               onSubmit={handleOrderSubmit}
               balance={balance}
@@ -88,9 +96,6 @@ function TradingSimulator() {
               isDisabled={balance <= 0}
               selectedOrder={selectedOrder}
             />
-          ) : (
-            <Skeleton height="200px" />
-          )}
         </div>
         <div className="order-history-container">
           {orders ? (

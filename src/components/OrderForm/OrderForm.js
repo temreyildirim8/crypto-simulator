@@ -101,7 +101,7 @@ function OrderForm({
     <Box
       component="form"
       onSubmit={handleSubmit}
-      sx={{ p: 3, bgcolor: "background.paper", borderRadius: 2, boxShadow: 1 }}
+      sx={{ p: 3, bgcolor: "#ffffff", borderRadius: 2, boxShadow: 1 }}
     >
       <Typography variant="h5" component="h2" gutterBottom>
         Place Order

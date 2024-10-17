@@ -4,6 +4,8 @@ import './OrderHistory.css';
 
 function OrderHistory({ orders, onCancel }) {
   const reversedOrders = [...orders]?.reverse();
+
+  console.log('reversedOrders', reversedOrders)
   
   return (
     <div className="order-history">

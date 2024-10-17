@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Typography } from '@mui/material';
+import { Button } from '@mui/material';
 import { useTradingContext } from '../../contexts/TradingContext';
 import './Wallet.css';
 
