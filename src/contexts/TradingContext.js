@@ -118,6 +118,40 @@ export const TradingProvider = ({ children }) => {
     setBalance(prevBalance => prevBalance + amount);
   };
 
+  useEffect(() => {
+    const checkPendingOrders = () => {
+      const currentPrice = parseFloat(tradeUpdate?.p);
+      if (!currentPrice) return;
+
+      setOrders((prevOrders) =>
+        prevOrders.map((order) => {
+          if (order.status === 'Pending') {
+            if (
+              (order.orderType === 'BUY_LIMIT' && currentPrice <= order.price) ||
+              (order.orderType === 'SELL_LIMIT' && currentPrice >= order.price)
+            ) {
+              const updatedOrder = {
+                ...order,
+                status: 'Filled',
+                orderCompleteDate: new Date().toISOString(),
+              };
+              if (order.orderType === 'SELL_LIMIT') {
+                updateBalance(order.price * order.quantity);
+              }
+              // Show toast notification for completed order
+              toast.success(`Your ${order.orderType} order for ${order.pair} is completed`);
+              return updatedOrder;
+            }
+          }
+          return order;
+        })
+      );
+    };
+
+    const intervalId = setInterval(checkPendingOrders, 1000);
+    return () => clearInterval(intervalId);
+  }, [tickerUpdate, tradeUpdate]);
+
   return (
     <TradingContext.Provider
       value={{
@@ -130,6 +164,7 @@ export const TradingProvider = ({ children }) => {
         handleOrderSubmit,
         handleOrderCancel,
         tickerUpdate,
+        tradeUpdate,
         updateBalance,
         orderBook
       }}
