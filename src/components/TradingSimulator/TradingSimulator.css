@@ -10,8 +10,13 @@
 
 .title {
   grid-column: 1 / -1;
+  margin-bottom: 10px;
+}
+
+.title h1 {
+  grid-column: 1 / -1;
   text-align: right;
-  padding-right: 16px;
+  padding-right: 12px;
   font-size: 24px;
   margin-bottom: 10px;
 }
