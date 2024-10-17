@@ -18,10 +18,9 @@ function Wallet() {
         <p>USDT : {balance?.toFixed(2)}</p>
         <Button 
           variant="contained" 
-          color="primary" 
           onClick={handleAddBalance}
           size="small"
-          style={{ backgroundColor: 'rgb(32, 100, 129)'}}
+          style={{ backgroundColor: 'rgb(32, 100, 129)', color: '#ffffff' }}
         >
           Add Balance
         </Button>
