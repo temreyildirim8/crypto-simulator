@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import useWebSocket from '../hooks/useWebSocket';
 import Big from 'big.js';
+import { toast } from 'react-toastify';
 
 const TradingContext = createContext();
 
