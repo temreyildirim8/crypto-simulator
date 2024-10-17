@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from 'react';
+import { useTheme } from "../contexts/ThemeContext";
 
 const TradingViewChart = ({ symbol }) => {
+  const { darkMode } = useTheme();
   const chartContainerRef = useRef();
 
   useEffect(() => {
@@ -16,7 +18,7 @@ const TradingViewChart = ({ symbol }) => {
       symbol: symbol || 'BTCUSDT',
       interval: '60',
       timezone: 'Etc/UTC',
-      theme: 'light',
+      theme: darkMode ? 'dark' : 'light',
       style: '1',
       locale: 'en',
       toolbar_bg: '#f1f3f6',
@@ -31,7 +33,7 @@ const TradingViewChart = ({ symbol }) => {
       ],
       fullScreen: true
     });
-  }, [symbol]);
+  }, [symbol, darkMode]);
 
   return <div id="tradingview-chart" ref={chartContainerRef} style={{ height: '100vh' }} />;
 };
