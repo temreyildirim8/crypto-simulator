@@ -34,7 +34,7 @@ function TradingSimulator() {
     balance,
     handleOrderSubmit,
     handleOrderCancel,
-    tickerUpdate,
+    tradeUpdate,
   } = useTradingContext();
 
   const [selectedOrder, setSelectedOrder] = useState(null);
@@ -51,9 +51,7 @@ function TradingSimulator() {
 
   return (
     <div className="trading-simulator">
-      <div className="title">
-        <h1>Trading Simulator</h1>
-      </div>
+      <h1 className='title'>Trading Simulator</h1>
       <div className="controls">
         <PairSelector selectedPair={selectedPair} onSelect={setSelectedPair} />
         {balance !== undefined ? (
@@ -86,7 +84,7 @@ function TradingSimulator() {
               onSubmit={handleOrderSubmit}
               balance={balance}
               pair={selectedPair}
-              lastPrice={tickerUpdate ? parseFloat(tickerUpdate.c) : null}
+              lastPrice={tradeUpdate ? parseFloat(tradeUpdate.p) : null}
               isDisabled={balance <= 0}
               selectedOrder={selectedOrder}
             />
