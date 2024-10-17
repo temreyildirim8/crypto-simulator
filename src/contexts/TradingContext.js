@@ -164,6 +164,7 @@ export const TradingProvider = ({ children }) => {
         handleOrderSubmit,
         handleOrderCancel,
         tickerUpdate,
+        tradeUpdate,
         updateBalance,
         orderBook
       }}
