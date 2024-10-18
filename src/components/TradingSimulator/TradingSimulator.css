@@ -1,6 +1,6 @@
 .trading-simulator {
   display: grid;
-  grid-template-rows: auto auto auto 1fr;
+  grid-template-rows: auto auto 1fr;
   gap: 10px;
   padding: 10px;
   height: 100vh;
@@ -10,15 +10,20 @@
 
 .title {
   grid-column: 1 / -1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 10px;
 }
 
 .title h1 {
-  grid-column: 1 / -1;
-  text-align: right;
-  padding-right: 12px;
   font-size: 24px;
-  margin-bottom: 10px;
+  margin: 0;
+}
+
+.theme-switch {
+  display: flex;
+  align-items: center;
 }
 
 .controls {
@@ -108,7 +113,7 @@ th, td {
     padding: 5px;
   }
 
-  .title {
+  .title h1 {
     font-size: 20px;
   }
 
@@ -132,8 +137,12 @@ th, td {
 
 /* Additional mobile optimizations */
 @media (max-width: 480px) {
-  .title {
+  .title h1 {
     font-size: 18px;
+  }
+
+  .theme-switch span {
+    display: none;
   }
 
   th, td {

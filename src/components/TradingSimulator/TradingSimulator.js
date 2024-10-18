@@ -30,7 +30,7 @@ function Skeleton({ height, width = "100%" }) {
 }
 
 function TradingSimulator() {
-  const { darkMode, toggleDarkMode } = useTheme();
+  const { darkMode, toggleDarkMode, theme } = useTheme();
   const muiTheme = useMUITheme();
 
   const {
@@ -64,12 +64,14 @@ function TradingSimulator() {
       }}
     >
       <div className="title">
-        <h1>Trading Simulator</h1>
-
         <div className="theme-switch">
-          <Switch checked={darkMode} onChange={toggleDarkMode} />
+          <Switch
+            checked={darkMode}
+            onChange={toggleDarkMode}
+          />
           <span>{darkMode ? "Dark Mode" : "Light Mode"}</span>
         </div>
+        <h1>Trading Simulator</h1>
       </div>
 
       <div className="controls">
@@ -100,14 +102,14 @@ function TradingSimulator() {
           )}
         </div>
         <div className="order-form-container">
-            <OrderForm
-              onSubmit={handleOrderSubmit}
-              balance={balance}
-              pair={selectedPair}
-              lastPrice={tradeUpdate ? parseFloat(tradeUpdate.p) : null}
-              isDisabled={balance <= 0}
-              selectedOrder={selectedOrder}
-            />
+          <OrderForm
+            onSubmit={handleOrderSubmit}
+            balance={balance}
+            pair={selectedPair}
+            lastPrice={tradeUpdate ? parseFloat(tradeUpdate.p) : null}
+            isDisabled={balance <= 0}
+            selectedOrder={selectedOrder}
+          />
         </div>
         <div className="order-history-container">
           {orders ? (
